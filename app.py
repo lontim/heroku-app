@@ -19,8 +19,8 @@ def create_app(test_config=None):
 
     @app.route('/coolkids')
     def be_cool():
-        return "Be cool, man, be coooool! You're almost a FSND grad!"
-
+#        return "Be cool, man, be coooool! You're almost a FSND grad!"
+        return "Hidden page - " + os.environ['DATABASE_URL']
     return app
 
 app = create_app()
