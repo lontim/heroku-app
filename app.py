@@ -2,6 +2,8 @@ import os
 from flask import Flask
 from models import setup_db
 from flask_cors import CORS
+from common_handles import db, migrate
+
 
 def create_app(test_config=None):
 
@@ -17,10 +19,12 @@ def create_app(test_config=None):
             greeting = greeting + "!!!!! You are doing great in this Udacity project."
         return greeting
 
-    @app.route('/coolkids')
+    @app.route('/status')
     def be_cool():
-#        return "Be cool, man, be coooool! You're almost a FSND grad!"
-        return "Hidden page - " + os.environ['DATABASE_URL']
+        status = ""
+        status = 'The value of __name__ is {}'.format(__name__) + "\n"
+        status += "<br>\n"
+        return status + "Connection string: " + os.environ['DATABASE_URL']
     return app
 
 app = create_app()
