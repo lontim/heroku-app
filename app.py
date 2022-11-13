@@ -1,10 +1,12 @@
 import os
-from flask import Flask
-from models import setup_db
+
+from flask import Flask, jsonify
 from flask_cors import CORS
-from auth import RequiresAuth, AuthError
+
+from auth import AuthError, RequiresAuth
 from common_handles import db, migrate
-from models import Actor, Film
+from models import Actor, Film, setup_db
+
 
 def create_app(test_config=None):
 
@@ -26,6 +28,16 @@ def create_app(test_config=None):
         status = 'The value of __name__ is {}'.format(__name__) + "\n"
         status += "<br>\n"
         return status + "Connection string: " + os.environ['DATABASE_URL']
+
+
+    @app.route('/films')
+    def get_films():
+      films = Film.query.all()
+      return jsonify({
+        "success": "True",
+        "films": "formatted_films"
+      })
+
     return app
 
 app = create_app()
