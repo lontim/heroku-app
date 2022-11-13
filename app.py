@@ -15,9 +15,14 @@ def create_app():
     setup_db(app)
     CORS(app)
 
+    AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
+    API_AUDIENCE = os.environ['API_AUDIENCE']
+    AUTH0_CLIENT_ID = os.environ['AUTH0_CLIENT_ID']
+    AUTH0_CALLBACK_URL = os.environ['AUTH0_CALLBACK_URL']
+
     @app.route('/')
     def get_greeting():
-        greeting = "Welcome to the Casting Database - Application Programming Interface (API) layer." 
+        greeting = "Welcome to the Casting Database - API (Application Programming Interface) layer." 
         return greeting
 
     @app.route('/status')
@@ -88,7 +93,7 @@ def create_app():
         """ Handler for Internal Server Error 500. """
         return jsonify({"Success": "False",
         "Error": 500,
-        "Message": error.error['description']}), 500
+        "Message": "Internal Server Error."}), 500
 
     # @app.errorhandler(507)
     # def handle_storage(error):
@@ -104,20 +109,6 @@ def create_app():
         "Error": error.status_code,
         "Message": error.error['description']}), error.status_code
 
-    @app.errorhandler(HTTPException)
-    def handle_exception(e):
-        """Return JSON instead of HTML for HTTP errors."""
-        # Based on docs: https://flask.palletsprojects.com/en/2.2.x/errorhandling/
-        # start with the correct headers and status code from the error
-        response = e.get_response()
-        # replace the body with JSON
-        response.data = json.dumps({
-            "code": e.code,
-            "name": e.name,
-            "description": e.description,
-        })
-        response.content_type = "application/json"
-        return response
 
     """ end of create_app() """
 

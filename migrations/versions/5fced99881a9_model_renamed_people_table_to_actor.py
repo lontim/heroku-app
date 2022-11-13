@@ -24,7 +24,7 @@ def upgrade():
     sa.Column('catchphrase', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
-    op.drop_table('People')
+    #op.drop_table('People')
     # ### end Alembic commands ###
 
 

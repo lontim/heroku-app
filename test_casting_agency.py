@@ -6,9 +6,10 @@ from common_handles import db, migrate
 from app import create_app
 from models import setup_db, Question, Category
 
-STUDIO_TOKEN = os.environ['STUDIO_TOKEN'] # token used by Studio admin role
-ACTOR_TOKEN = os.environ['ACTOR_TOKEN'] # token used by Actor admin role
-ERROR_TOKEN = os.environ['ERROR_TOKEN'] # an invalid token used for testing
+CASTING_ASSISTANT_TOKEN = os.environ['CASTING_ASSISTANT_TOKEN'] # token used by Casting Assistant role
+CASTING_DIRECTOR_TOKEN = os.environ['CASTING_DIRECTOR_TOKEN'] # token used by Casting Director role
+EXEC_PRODUCER_TOKEN = os.environ['EXEC_PRODUCER_TOKEN'] # token used by Exec Producer role
+ERROR_TOKEN = os.environ['ERROR_TOKEN'] # an invalid token used for testing the authentication & authorisation
 
 def bearer_token(token):
     return {
