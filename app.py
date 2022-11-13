@@ -47,7 +47,7 @@ def create_app(test_config=None):
       actors = Actor.query.all()
       fetched_actors = []
       for actor in actors:
-        fetched_films.append(actor.format())
+        fetched_actors.append(actor.format())
       return jsonify({
         "success": "True",
         "actors": fetched_actors
