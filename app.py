@@ -3,7 +3,7 @@ from flask import Flask
 from models import setup_db
 from flask_cors import CORS
 from common_handles import db, migrate
-
+from models import Actor, Film
 
 def create_app(test_config=None):
 
@@ -31,3 +31,12 @@ app = create_app()
 
 if __name__ == '__main__':
     app.run()
+
+@app.shell_context_processor
+def make_shell_context():
+    return {
+            'db': db,
+            'app': app,
+            'Actor': Actor,
+            'Film': Film
+            }
