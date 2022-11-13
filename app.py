@@ -90,12 +90,12 @@ def create_app():
         "Error": 500,
         "Message": error.error['description']}), 500
 
-    @app.errorhandler(507)
-    def handle_storage(error):
-        """ Handler for Insufficient Storage Space 507. """
-        return jsonify({"Success": "False",
-        "Error": 507,
-        "Message": error.error['description']}), 507
+    # @app.errorhandler(507)
+    # def handle_storage(error):
+    #    """ Handler for Insufficient Storage Space 507. """
+    #    return jsonify({"Success": "False",
+    #    "Error": 507,
+    #    "Message": error.error['description']}), 507
 
     @app.errorhandler(AuthError)
     def handle_auth(error):
