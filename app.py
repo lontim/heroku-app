@@ -33,9 +33,12 @@ def create_app(test_config=None):
     @app.route('/films')
     def get_films():
       films = Film.query.all()
+      fetched_films = []
+      for film in films:
+        fetched_films.append(film.format())
       return jsonify({
         "success": "True",
-        "films": "formatted_films"
+        "films": fetched_films
       })
 
     return app
