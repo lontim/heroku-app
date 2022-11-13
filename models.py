@@ -49,6 +49,9 @@ class Actor(db.Model):
       * name: db.String - Name of the actor
       * gender: db.String - Male or Female - Gender of the actor
       * age: db.Integer - Age of the actor
+
+      For example, you could type:
+      new_actor = Actor("Ingrid Bergman","Female","22")
     """
     self.name = name
     self.gender = gender
@@ -62,19 +65,22 @@ class Actor(db.Model):
       'age': self.age}
 
   def __repr__(self):
-    """Print a friendly representation of an Actor."""
+    """Displays a friendly representation of an Actor, when using Interactive Mode."""
     actor = "Actor (" + str(self.format()) + ")" + '\n'
     return actor
   
   def insert(self):
+    """Insert this Actor into the database."""
     db.session.add(self)
     db.session.commit()
 
   def delete(self):
+    """Delete this Actor from the database."""
     db.session.delete(self)
     db.session.commit()
 
   def update(self):
+    """Update this Actor from the database."""
     db.session.commit()
 
 class Film(db.Model):
@@ -104,17 +110,20 @@ class Film(db.Model):
       'date_of_release': self.date_of_release}
 
   def __repr__(self):
-    """Print a friendly representation of a Film."""
+    """Displays a friendly representation of a Film, when using Interactive Mode."""
     film = "Film (" + str(self.format()) + ")" + '\n'
     return film
   
   def insert(self):
+    """Insert this Film record into the database."""
     db.session.add(self)
     db.session.commit()
 
   def delete(self):
+    """Remove this Film record."""
     db.session.delete(self)
     db.session.commit()
 
   def update(self):
+    """Update this Film record."""
     db.session.commit()

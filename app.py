@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 from auth import AuthError, RequiresAuth
 from common_handles import db, migrate
-from models import Actor, Film, setup_db
+from models import film_actors, Actor, Film, setup_db
 
 
 def create_app(test_config=None):
@@ -29,9 +29,9 @@ def create_app(test_config=None):
         status += "<br>\n"
         return status + "Connection string: " + os.environ['DATABASE_URL']
 
-
     @app.route('/films')
     def get_films():
+      """Return the set of Films from the DB"""
       films = Film.query.all()
       fetched_films = []
       for film in films:
@@ -39,6 +39,18 @@ def create_app(test_config=None):
       return jsonify({
         "success": "True",
         "films": fetched_films
+      })
+
+    @app.route('/actors')
+    def get_actors():
+      """Return the set of Actors from the DB"""
+      actors = Actor.query.all()
+      fetched_actors = []
+      for actor in actors:
+        fetched_films.append(actor.format())
+      return jsonify({
+        "success": "True",
+        "actors": fetched_actors
       })
 
     return app
@@ -50,9 +62,13 @@ if __name__ == '__main__':
 
 @app.shell_context_processor
 def make_shell_context():
+    print ("Welcome to Interactive Mode.")
+    print ("============================")
+    print ("The following structures are available: db, app, Actor, Film, and film_actors.")
     return {
             'db': db,
             'app': app,
             'Actor': Actor,
-            'Film': Film
+            'Film': Film,
+            'film_actors': film_actors
             }
