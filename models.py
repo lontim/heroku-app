@@ -22,19 +22,39 @@ def setup_db(app, database_path=database_path):
     migrate.init_app(app,db)
 
 
+
 class Actor(db.Model):  
   __tablename__ = 'actor'
 
   id = Column(db.Integer, primary_key=True)
-  name = Column(String)
-  catchphrase = Column(String)
+  name = Column(db.String, nullable=False)
+  gender = Column(db.String, nullable=False)
+  age = Column(db.Integer, nullable=False)
 
-  def __init__(self, name, catchphrase=""):
+  def __init__(self, name, gender="", age=0):
     self.name = name
-    self.catchphrase = catchphrase
+    self.gender = gender
+    self.age = age
 
   def format(self):
     return {
       'id': self.id,
       'name': self.name,
-      'catchphrase': self.catchphrase}
+      'gender': self.gender,
+      'age': self.age}
+
+class Film(db.Model):
+  __tablename__ = 'film'
+  id = Column(db.Integer, primary_key=True)
+  name = Column(db.String, nullable=False)
+  date_of_release = Column(db.String, nullable=False)
+
+  def __init(self, name, date_of_release):
+    self.name = name
+    self.date_of_release = date_of_release
+  
+  def format(self):
+    return {
+      'id': self.id,
+      'name': self.name,
+      'date_of_release': self.date_of_release}
