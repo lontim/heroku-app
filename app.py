@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from models import setup_db
 from flask_cors import CORS
+from auth import RequiresAuth, AuthError
 from common_handles import db, migrate
 from models import Actor, Film
 
