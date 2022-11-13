@@ -3,9 +3,17 @@ from flask_sqlalchemy import SQLAlchemy
 from common_handles import db, migrate
 
 
-from flaskr import create_app
+from app import create_app
 from models import setup_db, Question, Category
 
+STUDIO_TOKEN = os.environ['STUDIO_TOKEN'] # token used by Studio admin role
+ACTOR_TOKEN = os.environ['ACTOR_TOKEN'] # token used by Actor admin role
+ERROR_TOKEN = os.environ['ERROR_TOKEN'] # an invalid token used for testing
+
+def bearer_token(token):
+    return {
+        'Authorization: Bearer ' + token
+    }
 
 class AgencyTestCase(unittest.TestCase):
     """This class represents the casting agency test case"""
@@ -16,6 +24,21 @@ class AgencyTestCase(unittest.TestCase):
         self.client = self.app.test_client
         self.database_path = os.environ['DATABASE_URL']
         setup_db(self.app, self.database_path)
+
+        self.test_film_valid = {
+            "name": "Udacity Documentary",
+            "date_of_release": "13-Nov-2022"
+        }
+
+        self.test_film_invalid = {
+            "name": "John Wick 5"
+        }
+
+        self.test_actor_valid = {
+            "name": "Keanu Reeves",
+            "gender": "Male",
+            "age": "58"
+        }
 
         self.question_to_add = {
             "question": "How many stars in our galaxy, the Milky Way?",
@@ -39,6 +62,10 @@ class AgencyTestCase(unittest.TestCase):
     def tearDown(self):
         """Executed after each test"""
         pass
+
+    def test_add_film():
+        res = self.client().post("/film", json=self.test_film_valid, headers=bearer_token(STUDIO_TOKEN))
+        self.assertEqual(res.status_code,200)
 
     def test_category(self):
         res = self.client().get("/categories")
