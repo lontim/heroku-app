@@ -22,12 +22,8 @@ def setup_db(app, database_path=database_path):
     migrate.init_app(app,db)
 
 
-'''
-Person
-Have title and release year
-'''
-class Person(db.Model):  
-  __tablename__ = 'People'
+class Actor(db.Model):  
+  __tablename__ = 'actor'
 
   id = Column(db.Integer, primary_key=True)
   name = Column(String)
