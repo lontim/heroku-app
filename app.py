@@ -23,12 +23,11 @@ def create_app(test_config=None):
         return greeting
 
     @app.route('/status')
-    def be_cool():
-        status = ""
-        status = 'The value of __name__ is {}'.format(__name__) + "\n"
-        status += "<br>\n"
-        return status + "Connection string: " + os.environ['DATABASE_URL']
-
+    def status():
+        return jsonify({
+            "working": "true"
+        })
+        
     @app.route('/films')
     def get_films():
       """Return the set of Films from the DB"""
