@@ -20,8 +20,15 @@ def create_app():
     AUTH0_CLIENT_ID = os.environ['AUTH0_CLIENT_ID']
     AUTH0_CALLBACK_URL = os.environ['AUTH0_CALLBACK_URL']
 
+    @app.after_request
+    def after_request(response):
+      response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,true')
+      response.headers.add('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE')
+      return response
+
     @app.route('/')
     def get_greeting():
+        """ Friendly welcome message advising that this is an API service. """
         greeting = "Welcome to the Casting Database - API (Application Programming Interface) layer." 
         return greeting
 
