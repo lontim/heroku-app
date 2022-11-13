@@ -5,16 +5,16 @@ from jose import jwt
 from urllib.request import urlopen
 
 
-AUTH0_DOMAIN = 'tim-eu.eu.auth0.com'
+# Read AUTH0_DOMAIN and API_AUDIENCE from environment variables
+AUTH0_DOMAIN = os.environ.get('AUTH0_DOMAIN')
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'latte'
+API_AUDIENCE = os.environ.get('API_AUDIENCE')
 
 ## AuthError Exception
 class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
-
 
 ## Auth Header
 def get_token_auth_header():
