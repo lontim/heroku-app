@@ -39,7 +39,7 @@ class Actor(db.Model):
   age = Column(db.Integer, nullable=False)
   film = db.relationship("Film", secondary="film_actors",
 #   backref=db.backref('films', lazy=True),
-   back_populates="actor")
+         back_populates="actor")
 
 
   def __init__(self, name, gender="", age=0):
@@ -58,6 +58,7 @@ class Actor(db.Model):
     self.age = age
 
   def format(self):
+    """Serialize this Actor record."""
     return {
       'id': self.id,
       'name': self.name,
@@ -104,6 +105,7 @@ class Film(db.Model):
     self.date_of_release = date_of_release
   
   def format(self):
+    """Serialize this Film record."""
     return {
       'id': self.id,
       'name': self.name,
