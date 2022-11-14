@@ -41,6 +41,7 @@ def create_app():
     # GET All endpoints - All Films & All Actors
 
     @app.route('/films')
+    @RequiresAuth('get:film')
     def get_films():
       """Return the serialised set of Films from the DB"""
       films = Film.query.all()
@@ -53,6 +54,7 @@ def create_app():
       })
 
     @app.route('/actors')
+    @RequiresAuth('get:actor')
     def get_actors():
       """Return the serialised set of Actors from the DB"""
       actors = Actor.query.all()
@@ -67,6 +69,7 @@ def create_app():
     # POST endpoints - Add a Film & Add an Actor
 
     @app.route('/film', methods=['POST'])
+    @RequiresAuth('post:film')
     def post_film():
         """ Endpoint to add a film. """
         request_data = request.get_json()
@@ -80,6 +83,7 @@ def create_app():
         })
 
     @app.route('/actor', methods=['POST'])
+    @RequiresAuth('post:actor')
     def post_actor():
         """ Endpoint to add an actor. """
         request_data = request.get_json()
