@@ -42,9 +42,28 @@ source myvenv/bin/activate
 pip install -r requirements.txt
 ```
 
+4. Run the app locally
+
+```bash
+source setup.sh
+flask run
+```
+
+5. Check the app is running using a local web browser
+
+In a web browser, such as Chrome or Safari, load the following URL:
+```
+http://localhost:5000/
+```
+
+You should see a friendly greeting, that doesn't require a password.
+
+Non-local test URL: https://scie-app.herokuapp.com/
+
 ## Authentication
 
-Fresh access tokens can be generated using Auth0.
+Fresh access tokens may be generated using Auth0.
+However, the tokens supplied in `setup.sh` should be sufficient.
 
 Hyperlink: https://tim-eu.eu.auth0.com/authorize?audience=agency&response_type=token&client_id=a43SpbN7ZUcEKx5Ck7a2YX8im4IYL4H3&redirect_uri=http://localhost:8080/login-results
 
